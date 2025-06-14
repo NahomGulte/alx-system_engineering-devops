@@ -1,2 +1,2 @@
 #!/bin/bash
-for d in ${PATH//:/ }; do if [ -d "$d" ]; then echo "$d"; fi; done |wc -l
+tr ':' '\n' <<<"$PATH" | grep -c '^.\+$'
