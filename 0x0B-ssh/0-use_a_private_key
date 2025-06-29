@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 # this is a script to ssh to my alx server
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/school
-ssh ubuntu@52.207.233.175
+ssh -i ~/.ssh/school ubuntu@8.8.8.8
 
