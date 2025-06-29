@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # to Create RSA ssh RSA ssh
-ssh-keygen -t rsa -b 4096 -P betty -f school
+ssh-keygen -t rsa -b 4096 -f school -P betty
+
