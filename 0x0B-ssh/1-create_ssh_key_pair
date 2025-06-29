@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# this is a script to generate a public and private key
+# to Create RSA ssh RSA ssh
 ssh-keygen -t rsa -b 4096 -f school -P betty
 
