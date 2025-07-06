@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 # this is a script to scp a file to a remote server
-scp -i ~/.ssh/id_rsa C:\Users\neezy\Desktop\alx-backend-graphql_crm ubuntu@52.207.233.175 :~/
+FILE_PATH="$1"
+SERVER_IP="$2"
+USERNAME="$3"
+SSH_KEY_PATH="$4"
+
+# Use scp to transfer the file to the home directory of the user
+scp -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no "$FILE_PATH" "$USERNAME@$SERVER_IP:~/"
 
