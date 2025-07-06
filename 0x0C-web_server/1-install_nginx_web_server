@@ -1,6 +1,6 @@
 #!/bin/bash
+#installing and configuring Nginx
 
-# installing and configuring Nginx
 apt-get update -y
 
 apt-get install nginx -y
