@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # this is a script to scp a file to a remote server
-scp -i ~/.ssh/id_rsa C:\Users\neezy\Desktop\alx-backend-graphql_crm da9f637ce2fa@da9f637ce2fa.b5730bd0.alx-cod.online:/
+scp -i ~/.ssh/id_rsa C:\Users\neezy\Desktop\alx-backend-graphql_crm ubuntu@52.207.233.175 :~/
 
