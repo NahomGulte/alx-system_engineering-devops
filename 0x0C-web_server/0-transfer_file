@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+scp -i ~/.ssh/id_rsa C:\Users\neezy\Desktop\alx-backend-graphql_crm da9f637ce2fa@da9f637ce2fa.b5730bd0.alx-cod.online:/
