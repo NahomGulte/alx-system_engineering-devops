@@ -1,26 +1,37 @@
 #!/usr/bin/env bash
-# This script retrieves DNS A record information for given subdomains under a specified domain using dig.
+# This script checks DNS A records for specific or given subdomains under a given domain using dig and awk.
 
+# shellcheck disable=SC2086
+
+# Function to get subdomain info using dig and parse the first IP address
 get_subdomain_info() {
     local sub="$1"
     local dom="$2"
 
-    local dig_output
-    dig_output=$(dig "${sub}.${dom}" +short | awk 'NR==1 {print $1}')
+    local dig_output record_type ip
+    dig_output=$(dig ${sub}.${dom} +short)
 
-    if [ -n "$dig_output" ]; then
-        echo "The subdomain ${sub} is a A record and points to ${dig_output}"
+    # Extract first non-empty line (the IP)
+    ip=$(echo "$dig_output" | awk 'NR==1 {print $1}')
+
+    # If an IP was found, assume it's an A record
+    if [ -n "$ip" ]; then
+        record_type="A"
+        echo "The subdomain ${sub} is a ${record_type} record and points to ${ip}"
     fi
 }
 
+# Main entry point of the script
 main() {
     local domain="$1"
     local subdomain="$2"
 
+    # Only domain provided: check default subdomains
     if [ -n "$domain" ] && [ -z "$subdomain" ]; then
         for sub in www lb-01 web-01 web-02; do
             get_subdomain_info "$sub" "$domain"
         done
+    # Both domain and subdomain provided
     elif [ -n "$domain" ] && [ -n "$subdomain" ]; then
         get_subdomain_info "$subdomain" "$domain"
     fi

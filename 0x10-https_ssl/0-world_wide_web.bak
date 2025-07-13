@@ -1,27 +1,29 @@
-#!/bin/bash
-# Ignore SC2086 as per instructions
-# shellcheck disable=SC2086
+#!/usr/bin/env bash
+# This script retrieves DNS A record information for given subdomains under a specified domain using dig.
 
 get_subdomain_info() {
-    local sub=$1
-    local dom=$2
-    local result
+    local sub="$1"
+    local dom="$2"
 
-    result=$(dig ${sub}.${dom} +short | awk 'NR==1 {ip=$1} END {print ip}')
-    record_type="A"
+    local dig_output
+    dig_output=$(dig "${sub}.${dom}" +short | awk 'NR==1 {print $1}')
 
-    if [ -n "$result" ]; then
-        echo "The subdomain ${sub} is a ${record_type} record and points to ${result}"
+    if [ -n "$dig_output" ]; then
+        echo "The subdomain ${sub} is a A record and points to ${dig_output}"
     fi
 }
 
-domain=$1
-subdomain=$2
+main() {
+    local domain="$1"
+    local subdomain="$2"
 
-if [ -n "$domain" ] && [ -z "$subdomain" ]; then
-    for sub in www lb-01 web-01 web-02; do
-        get_subdomain_info $sub $domain
-    done
-elif [ -n "$domain" ] && [ -n "$subdomain" ]; then
-    get_subdomain_info $subdomain $domain
-fi
+    if [ -n "$domain" ] && [ -z "$subdomain" ]; then
+        for sub in www lb-01 web-01 web-02; do
+            get_subdomain_info "$sub" "$domain"
+        done
+    elif [ -n "$domain" ] && [ -n "$subdomain" ]; then
+        get_subdomain_info "$subdomain" "$domain"
+    fi
+}
+
+main "$@"
